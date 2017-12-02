@@ -27,7 +27,11 @@ function GetButtons(right_hand)
   buttons = {}
 
   if (state.ApplicationMenu.pressed) then
-    table.insert(buttons, ovrButton_Enter)
+    table.insert(buttons, right_hand and ovrButton_B or ovrButton_Y)
+  end
+
+  if (state.ApplicationMenu.pressed and state[SteamVR_Trigger].pressed) then
+    table.insert(buttons, right_hand and ovrButton_A or ovrButton_X)
   end
 
   if (state.A.pressed) then
@@ -39,7 +43,7 @@ function GetButtons(right_hand)
   end
 
   if (state[SteamVR_Touchpad].pressed) then
-    table.insert(buttons, ButtonFromQuadrant(state[SteamVR_Touchpad], right_hand))
+    table.insert(buttons, right_hand and ovrTouch_RThumb or ovrTouch_LThumb)
   end
 
   return unpack(buttons)

@@ -451,7 +451,7 @@ bool InputManager::OculusTouch::GetInputState(ovrSession session, ovrInputState*
 
 	lua_getglobal(L, "GetTriggers");
 	lua_pushboolean(L, hand == ovrHand_Right);
-	lua_createtable(L, 0, 3);
+	lua_createtable(L, 0, 5);
 	lua_pushboolean(L, settings->ToggleGrip == revGrip_Normal);
 	lua_setfield(L, -2, "normal");
 	lua_pushboolean(L, settings->ToggleGrip == revGrip_Toggle);
@@ -463,8 +463,8 @@ bool InputManager::OculusTouch::GetInputState(ovrSession session, ovrInputState*
 	lua_pushnumber(L, settings->TriggerAsGrip);
 	lua_setfield(L, -2, "trigger");
 	lua_pcall(L, 2, 2, 0);
-	inputState->IndexTrigger[hand] = (float)lua_tonumber(L, -2);
-	inputState->HandTrigger[hand] = (float)lua_tonumber(L, -1);
+	inputState->HandTrigger[hand] = (float)lua_tonumber(L, -2);
+	inputState->IndexTrigger[hand] = (float)lua_tonumber(L, -1);
 	lua_pop(L, 2);
 
 	lua_getglobal(L, "GetThumbstick");
